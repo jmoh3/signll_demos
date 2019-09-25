@@ -59,7 +59,7 @@ for i in range(len(X_test_tensor)):
     actual = y_test_tensor[i]
     # If our model predicted something greater than 0, and our actual is 1, then we increment
     # correct by 1 because our model guessed correctly.
-    if prediction > 0 and actual == 1:
+    if (prediction > 0 and actual == 1) or (prediction < 0 and actual == -1):
         correct += 1
 
 accuracy = correct / len(X_test_tensor)
@@ -67,7 +67,6 @@ accuracy = correct / len(X_test_tensor)
 print(f'Accuracy: {accuracy}')
 
 # try it yourself!
-
 to_predict = torch.tensor(vectorizer.transform(["Terrible food, terrible service. Would never reccomend to a friend"]).toarray(), dtype=torch.float)
 
 prediction = w @ to_predict[0] + b
