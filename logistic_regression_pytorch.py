@@ -68,6 +68,5 @@ print(f'Accuracy: {accuracy}')
 
 # try it yourself!
 to_predict = torch.tensor(vectorizer.transform(["Terrible food, terrible service. Would never reccomend to a friend"]).toarray(), dtype=torch.float)
-
 prediction = w @ to_predict[0] + b
 print(prediction)
