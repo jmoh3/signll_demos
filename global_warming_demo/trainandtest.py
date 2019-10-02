@@ -6,10 +6,10 @@ from sklearn.model_selection import train_test_split
 df = pd.read_csv('global_warming_tweets.csv',encoding = "utf-8-sig",engine='python',error_bad_lines=False)
 
 # play around with the dataset to see what data it contains
-# print(df)
-# print('Tweet:', df['tweet'][16], '\nExistence:', df['existence'][16])
-# print()
-# print('Tweet:', df['tweet'][17], '\nExistence:', df['existence'][17])
+print(df)
+print('Tweet:', df['tweet'][16], '\nExistence:', df['existence'][16])
+print()
+print('Tweet:', df['tweet'][17], '\nExistence:', df['existence'][17])
 
 # feel free to comment out the print statements above once you're done examining the df
 
@@ -57,7 +57,7 @@ from model import TweetClassifier
 
 # Checkpoint: the constructor for TweetClassifier needs to know how many dimensions the weight
 # vector should have. Pass that in as an argument.
-classifier = TweetClassifier(X_train.shape[1])
+classifier = TweetClassifier(NUM_DIMS_OF_WEIGHT_VECTOR)
 
 # the optimizer can take care of gradient descent for us (we set its learning rate to 0.01)
 # SGD stands for stochastic gradient descent
@@ -70,13 +70,13 @@ for epoch in range(50):
         prediction = classifier.forward(X_train[i])
 
         # Checkpoint: Write a boolean expression determining if the tweet believes in global warming
-        # (using the actual label, not the prediction)
-        if Y_train[i] == 1:
+        # (based on the actual label, not the prediction)
+        if TWEET_BELIEVES_IN_GLOBAL_WARMING:
             # Checkpoint: Write the loss function for a tweet that believes in global warming 
-            loss = torch.log(1 + torch.exp(-prediction))
+            loss = INSERT_LOSS_FUNCTION
         else:
             # Checkpoint: Write the loss function for a tweet that does not believe in global warming 
-            loss = torch.log(1 + torch.exp(prediction))
+            loss = INSERT_LOSS_FUNCTION
 
         # Sanity Check:
         # The loss should approach 0 as the predictor becomes more confident in the correct label
@@ -101,7 +101,7 @@ for i in range(len(X_test)):
     print("----------------------------", file=file)
 
     # Checkpoint: Write a boolean expression that determines if the prediction matches the actual label
-    if prediction > 0 and Y_test[i] == 1 or prediction < 0 and Y_test[i] == 0:
+    if PREDICTION_MATCHES_ACTUAL_LABEL:
         correct += 1
 
 print("Accuracy", correct / len(X_test))
@@ -114,4 +114,6 @@ words_to_examine = ["conspiracy", "environment"]
 
 for word in words_to_examine:
     word_index = vectorizer.get_feature_names().index(word)
-    print(classifier.weight_vec[word_index])
+    print("Word:", word, "\tCorresponding weight:", classifier.weight_vec[word_index])
+
+# Checkpoint: how can we interpret the weights corresponding to "conspiracy" and "environment"?

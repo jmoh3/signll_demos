@@ -30,4 +30,4 @@ class TweetClassifier(torch.nn.Module):
         """
 
         # Checkpoint: write a mathematical expression that makes a prediction on the tweet vector
-        return self.weight_vec @ x + self.bias
+        return PREDICTION
